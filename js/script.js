@@ -1,71 +1,63 @@
-const formulario = document.querySelector("#formulario");
-const listaResultados = document.querySelector("#lista-resultados");
+const formulario = document.getElementById("formulario");
+const resultado = document.getElementById("resultado");
 
-formulario.addEventListener("submit", function(event) {
-  event.preventDefault();
+formulario.addEventListener("submit", function (evento) {
+    evento.preventDefault();
 
-  listaResultados.replaceChildren();
+    resultado.innerHTML = "";
 
-  for (let i = 1; i <= 3; i++) {
-    const nome = document.querySelector(`#nome${i}`).value.trim();
-    const anterior = Number(
-      document.querySelector(`#anterior${i}`).value
-    );
-    const atual = Number(
-      document.querySelector(`#atual${i}`).value
-    );
+    for (let i = 1; i <= 3; i++) {
+        const nome = document.getElementById(`nome${i}`).value.trim();
+        const precoAnterior = parseFloat(
+            document.getElementById(`precoAnterior${i}`).value
+        );
+        const precoAtual = parseFloat(
+            document.getElementById(`precoAtual${i}`).value
+        );
 
-    if (anterior < 0 || atual < 0) {
-      alert("Os preços não podem ser negativos.");
-      return;
+        if (
+            nome === "" ||
+            isNaN(precoAnterior) ||
+            isNaN(precoAtual) ||
+            precoAnterior <= 0 ||
+            precoAtual < 0
+        ) {
+            resultado.innerHTML += `
+                <p>Verifique os dados do produto ${i}.
+                O nome deve ser preenchido, o preço anterior
+                deve ser maior que zero e o preço atual não pode
+                ser negativo.</p>
+            `;
+            continue;
+        }
+
+        const variacao =
+            ((precoAtual - precoAnterior) / precoAnterior) * 100;
+
+        let situacao;
+
+        if (variacao > 0) {
+            situacao = "AUMENTO";
+        } else if (variacao < 0) {
+            situacao = "QUEDA";
+        } else {
+            situacao = "ESTÁVEL";
+        }
+
+        resultado.innerHTML += `
+            <div class="produto-resultado">
+                <h3>${nome}</h3>
+                <p>Preço anterior: ${precoAnterior.toLocaleString(
+                    "pt-BR",
+                    { style: "currency", currency: "BRL" }
+                )}</p>
+                <p>Preço atual: ${precoAtual.toLocaleString(
+                    "pt-BR",
+                    { style: "currency", currency: "BRL" }
+                )}</p>
+                <p>Variação: ${variacao.toFixed(2)}%</p>
+                <p>Situação: <strong>${situacao}</strong></p>
+            </div>
+        `;
     }
-
-    const variacao = atual - anterior;
-    let situacao;
-    let classe;
-
-    if (variacao > 0) {
-      situacao = "Houve aumento de preço.";
-      classe = "aumento";
-    } else if (variacao < 0) {
-      situacao = "Houve redução de preço.";
-      classe = "reducao";
-    } else {
-      situacao = "O preço foi mantido.";
-      classe = "mantido";
-    }
-
-    const resultado = document.createElement("article");
-    resultado.className = `resultado ${classe}`;
-
-    const titulo = document.createElement("h3");
-    titulo.textContent = nome;
-
-    const descricao = document.createElement("p");
-    descricao.textContent = situacao;
-
-    const valores = document.createElement("p");
-    valores.textContent =
-      `Anterior: ${anterior.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-      })} | Atual: ${atual.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-      })}`;
-
-    const diferenca = document.createElement("p");
-    diferenca.textContent =
-      `Variação: ${variacao.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-      })}`;
-
-    resultado.append(titulo, descricao, valores, diferenca);
-    listaResultados.appendChild(resultado);
-  }
-
-  document.querySelector("#resultados").scrollIntoView({
-    behavior: "smooth"
-  });
 });
