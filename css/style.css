@@ -1,0 +1,111 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+header {
+  background: #16324f;
+  color: white;
+  text-align: center;
+  padding: 30px 15px;
+}
+
+header h1 {
+  margin-bottom: 8px;
+}
+
+main {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+.produto {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  border: 1px solid #dbe3ec;
+}
+
+.produto h3 {
+  color: #2463eb;
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+button {
+  background: #2463eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 22px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #174bbd;
+}
+
+#resultados {
+  margin-top: 30px;
+}
+
+.resultado {
+  background: white;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  border-left: 5px solid #94a3b8;
+}
+
+.aumento {
+  border-left-color: #dc2626;
+}
+
+.reducao {
+  border-left-color: #16a34a;
+}
+
+.mantido {
+  border-left-color: #64748b;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #64748b;
+}
+
+@media (min-width: 700px) {
+  #formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  #formulario button {
+    align-self: start;
+  }
+}
