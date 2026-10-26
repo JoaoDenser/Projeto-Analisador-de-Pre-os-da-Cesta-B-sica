@@ -1,8 +1,0 @@
-escreva("Digite o nome do primeiro produto:")
-leia(nome1)
-
-escreva("Digite o preço do produto no mês anterior:")
-leia(precoAnterior1)
-
-escreva("Digite o preço do produto no mês atual:")
-leia(precoAtual1)
